@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  crm_localstack:
+    container_name: crm_localstack
+    image: localstack/localstack-full
+    ports:
+      - "4566-4571:4566-4571"
+    environment:
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_ACCESS_KEY_ID=test
+      - SERVICES=dynamodb

@@ -1,0 +1,14 @@
+amazon:
+  account: "006888504350"
+  region: us-east-1
+  useIAMRoles: true
+  cognito:
+    userPoolId:
+    clientId:
+
+security:
+  jwt:
+    jwkSetConnectionTimeout: 2000
+    jwkSetReadTimeout: 2000
+    jwkSetURL: https://cognito-idp.${amazon.region}.amazonaws.com/${amazon.cognito.userPoolId}/.well-known/jwks.json
+    jwkSetAlgorithm: RS256

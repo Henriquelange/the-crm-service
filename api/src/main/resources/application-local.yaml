@@ -1,0 +1,19 @@
+amazon:
+  accessKeyId: test
+  account: "000000000000"
+  secretKey: test
+  region: us-east-1
+  useIAMRoles: false
+  endpoint: http://localhost:4566/000000000000
+  dynamodb:
+    endpoint: http://localhost:4566
+  cognito:
+    userPoolId:
+    clientId:
+
+security:
+  jwt:
+    jwkSetConnectionTimeout: 2000
+    jwkSetReadTimeout: 2000
+    jwkSetURL: https://cognito-idp.${amazon.region}.amazonaws.com/${amazon.cognito.userPoolId}/.well-known/jwks.json
+    jwkSetAlgorithm: RS256
