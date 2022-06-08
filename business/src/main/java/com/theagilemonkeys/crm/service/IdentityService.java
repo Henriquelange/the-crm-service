@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class LoginService {
+public class IdentityService {
 
   private final IdentityProviderIntegration identityProviderIntegration;
 

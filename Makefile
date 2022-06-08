@@ -8,6 +8,10 @@ help:
 # Create and start Docker local infrastructure
 docker-start:
 	docker-compose -f local/docker-compose.yaml up -d --remove-orphans
+	@sleep 1
+	sh local/create_dynamodb_table.sh
+	@sleep 1
+	sh local/send_consumer_to_dynamodb.sh
 
 # Start Docker local infrastructure
 docker-start-only:
