@@ -16,8 +16,8 @@ Finally, just run **ApiApplication**. The server will be running at http://local
 This service is responsible for providing the backend functionalities for our CRM!
 Its main responsibilities includes:
 - CRM User registration and login;
-- Manage consumer personal information;
-- List existing consumers.
+- Manage customers personal information;
+- List existing customers.
 
 ## Technologies
 Here are the underlying technologies that provides all the support needed for this service:

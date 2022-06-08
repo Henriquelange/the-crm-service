@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateConsumerDTO {
+public class CreateCustomerDTO {
 
   @NotBlank(message = "First name is mandatory")
   private String firstName;
