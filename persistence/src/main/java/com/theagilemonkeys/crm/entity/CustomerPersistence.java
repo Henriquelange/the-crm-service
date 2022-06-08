@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
-@DynamoDBTable(tableName = "CrmConsumer")
+@DynamoDBTable(tableName = "CrmCustomer")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ConsumerPersistence {
+public class CustomerPersistence {
 
-  public static final String TABLE_NAME = "CrmConsumer";
+  public static final String TABLE_NAME = "CrmCustomer";
 
   @Id
   @DynamoDBHashKey(attributeName = "id")

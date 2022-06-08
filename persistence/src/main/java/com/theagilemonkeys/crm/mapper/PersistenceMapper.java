@@ -1,7 +1,7 @@
 package com.theagilemonkeys.crm.mapper;
 
-import com.theagilemonkeys.crm.entity.Consumer;
-import com.theagilemonkeys.crm.entity.ConsumerPersistence;
+import com.theagilemonkeys.crm.entity.Customer;
+import com.theagilemonkeys.crm.entity.CustomerPersistence;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -19,8 +19,9 @@ public abstract class PersistenceMapper {
     return id != null ? id.toString() : null;
   }
 
-  public abstract Consumer consumerPersistenceToConsumerBusinessEntity(ConsumerPersistence consumerPersistence);
+  public abstract Customer customerPersistenceToCustomerBusinessEntity(
+      CustomerPersistence customerPersistence);
 
-  public abstract ConsumerPersistence consumerBusinessToConsumerPersistenceEntity(Consumer consumer);
+  public abstract CustomerPersistence customerBusinessToCustomerPersistenceEntity(Customer customer);
 
 }

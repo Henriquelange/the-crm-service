@@ -1,8 +1,8 @@
 package com.theagilemonkeys.crm.mapper;
 
 import com.theagilemonkeys.crm.dto.AuthenticatedUserDTO;
-import com.theagilemonkeys.crm.dto.CreateConsumerDTO;
-import com.theagilemonkeys.crm.entity.Consumer;
+import com.theagilemonkeys.crm.dto.CreateCustomerDTO;
+import com.theagilemonkeys.crm.entity.Customer;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 import org.mapstruct.Mapper;
@@ -12,13 +12,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring",
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
     imports = {UUID.class, ZonedDateTime.class})
-public interface ConsumerMapper {
+public interface CustomerMapper {
 
   @Mapping(target = "id", expression = "java(UUID.randomUUID())")
-  @Mapping(source = "consumerDTO.firstName", target = "firstName")
-  @Mapping(source = "consumerDTO.lastName", target = "lastName")
-  @Mapping(source = "consumerDTO.photoUrl", target = "photoUrl")
+  @Mapping(source = "customerDTO.firstName", target = "firstName")
+  @Mapping(source = "customerDTO.lastName", target = "lastName")
+  @Mapping(source = "customerDTO.photoUrl", target = "photoUrl")
   @Mapping(source = "authenticatedUser.email", target = "lastModifiedBy")
-  Consumer createConsumerDTOToConsumerBusinessEntity(CreateConsumerDTO consumerDTO, AuthenticatedUserDTO authenticatedUser);
+  Customer createCustomerDTOToCustomerBusinessEntity(CreateCustomerDTO customerDTO, AuthenticatedUserDTO authenticatedUser);
 
 }

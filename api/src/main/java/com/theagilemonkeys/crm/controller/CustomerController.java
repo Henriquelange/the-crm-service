@@ -1,11 +1,11 @@
 package com.theagilemonkeys.crm.controller;
 
-import com.theagilemonkeys.crm.dto.CreateConsumerDTO;
+import com.theagilemonkeys.crm.dto.CreateCustomerDTO;
 import com.theagilemonkeys.crm.dto.AuthenticatedUserDTO;
-import com.theagilemonkeys.crm.entity.Consumer;
+import com.theagilemonkeys.crm.entity.Customer;
 import com.theagilemonkeys.crm.exception.PersistenceException;
-import com.theagilemonkeys.crm.mapper.ConsumerMapper;
-import com.theagilemonkeys.crm.service.ConsumerService;
+import com.theagilemonkeys.crm.mapper.CustomerMapper;
+import com.theagilemonkeys.crm.service.CustomerService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.Valid;
@@ -20,38 +20,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Consumer")
+@Tag(name = "Customer")
 @RestController
 @RequestMapping("/api/crm")
 @Slf4j
-public class ConsumerController {
+public class CustomerController {
 
   @Autowired
-  private ConsumerService consumerService;
+  private CustomerService customerService;
 
   @Autowired
-  private ConsumerMapper consumerMapper;
+  private CustomerMapper customerMapper;
 
-  @PostMapping("/consumer")
-  public ResponseEntity createConsumer(
+  @PostMapping("/customer")
+  public ResponseEntity createCustomer(
       @AuthenticationPrincipal AuthenticatedUserDTO authenticatedUser, @Valid @RequestBody
-      CreateConsumerDTO createConsumerDTO) throws PersistenceException {
+      CreateCustomerDTO createCustomerDTO) throws PersistenceException {
 
-    Consumer consumer = consumerService.saveConsumer(
-        consumerMapper.createConsumerDTOToConsumerBusinessEntity(createConsumerDTO,
+    Customer customer = customerService.saveCustomer(
+        customerMapper.createCustomerDTOToCustomerBusinessEntity(createCustomerDTO,
             authenticatedUser));
-    log.info("Created consumer: {}", consumer);
+    log.info("Created customer: {}", customer);
 
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 
-  @GetMapping("/consumers")
-  public ResponseEntity<List<Consumer>> listAllConsumers(
+  @GetMapping("/customers")
+  public ResponseEntity<List<Customer>> listAllCustomers(
       @AuthenticationPrincipal AuthenticatedUserDTO authenticatedUser) throws PersistenceException {
 
-    List<Consumer> consumerList = consumerService.findAllConsumers();
+    List<Customer> customerList = customerService.findAllCustomers();
 
-    return ResponseEntity.status(HttpStatus.OK).body(consumerList);
+    return ResponseEntity.status(HttpStatus.OK).body(customerList);
   }
 
 }

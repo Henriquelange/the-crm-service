@@ -11,7 +11,7 @@ docker-start:
 	@sleep 1
 	sh local/create_dynamodb_table.sh
 	@sleep 1
-	sh local/send_consumer_to_dynamodb.sh
+	sh local/send_customer_to_dynamodb.sh
 
 # Start Docker local infrastructure
 docker-start-only:

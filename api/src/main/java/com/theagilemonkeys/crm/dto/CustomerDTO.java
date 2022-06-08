@@ -1,7 +1,6 @@
 package com.theagilemonkeys.crm.dto;
 
 import java.util.UUID;
-import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ConsumerDTO {
+public class CustomerDTO {
 
   private UUID id;
 

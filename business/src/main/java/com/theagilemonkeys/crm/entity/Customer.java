@@ -12,7 +12,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Consumer {
+public class Customer {
 
   @NonNull
   private UUID id;
