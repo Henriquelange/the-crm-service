@@ -8,8 +8,8 @@ amazon:
   dynamodb:
     endpoint: http://localhost:4566
   cognito:
-    userPoolId:
-    clientId:
+    userPoolId: us-east-1_NfXjUe5Es
+    clientId: 1enu5kkv5pdg1ut6uiprppr503
 
 security:
   jwt:

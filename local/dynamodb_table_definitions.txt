@@ -1,0 +1,4 @@
+CrmConsumer
+AttributeName=id,AttributeType=S
+AttributeName=id,KeyType=HASH
+ReadCapacityUnits=1,WriteCapacityUnits=1

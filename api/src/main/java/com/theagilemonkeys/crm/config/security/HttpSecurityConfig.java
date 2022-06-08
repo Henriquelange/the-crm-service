@@ -25,7 +25,7 @@ public class HttpSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity.authorizeRequests()
-        .antMatchers("/api/health/**",
+        .antMatchers("/api/crm/login/**", "/api/health/**",
             "/swagger-ui.html",
             "/api-docs/**",
             "/swagger-ui/**")

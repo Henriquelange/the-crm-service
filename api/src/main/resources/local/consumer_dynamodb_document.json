@@ -1,0 +1,23 @@
+{
+  "id": {
+    "S": "ed29f578-74f0-46e4-ac39-51ac31fca7ff"
+  },
+  "firstName": {
+    "S": "Henrique"
+  },
+  "lastName": {
+    "S": "Lange"
+  },
+  "photoUrl": {
+    "S": "https://static.wikia.nocookie.net/chrono/images/8/8e/Crono_portrait.png"
+  },
+  "createdDate": {
+    "S": "2022-06-07T12:00:00.000Z"
+  },
+  "lastUpdatedDate": {
+    "S": "2022-06-07T12:00:00.000Z"
+  },
+  "lastModifiedBy": {
+    "S": "hlangeseverino@gmail.com"
+  }
+}

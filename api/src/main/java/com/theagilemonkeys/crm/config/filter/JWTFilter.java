@@ -5,7 +5,7 @@ import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
-import com.theagilemonkeys.crm.dto.LoggedInUserDTO;
+import com.theagilemonkeys.crm.dto.AuthenticatedUserDTO;
 import com.theagilemonkeys.crm.entity.enums.CognitoAttributeFieldEnum;
 import java.io.IOException;
 import java.text.ParseException;
@@ -43,15 +43,15 @@ public class JWTFilter extends OncePerRequestFilter {
         final String token = authorizationHeader.split(" ")[1].trim();
         JWTClaimsSet claimsSet = jwtProcessorConfig.process(token, null);
 
-        LoggedInUserDTO loggedInUser = LoggedInUserDTO.builder()
+        AuthenticatedUserDTO authenticatedUser = AuthenticatedUserDTO.builder()
             .email(claimsSet.getStringClaim(CognitoAttributeFieldEnum.EMAIL.getName()))
             .build();
 
-        log.debug("Logged user - User {}", loggedInUser.getEmail());
+        log.debug("Logged in user - User {}", authenticatedUser.getEmail());
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
             new UsernamePasswordAuthenticationToken(
-                loggedInUser, null, null);
+                authenticatedUser, null, null);
 
         usernamePasswordAuthenticationToken
             .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -60,7 +60,7 @@ public class JWTFilter extends OncePerRequestFilter {
       }
 
     } catch (BadJOSEException | ParseException | JOSEException | RuntimeException e) {
-      log.error("Error get logged in user - Error:", e);
+      log.error("Error to get authenticated user - Error:", e);
     }
 
     filterChain.doFilter(request, response);
