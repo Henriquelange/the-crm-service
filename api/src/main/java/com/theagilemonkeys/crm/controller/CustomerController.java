@@ -2,8 +2,11 @@ package com.theagilemonkeys.crm.controller;
 
 import com.theagilemonkeys.crm.dto.AuthenticatedUserDTO;
 import com.theagilemonkeys.crm.dto.CreateCustomerDTO;
+import com.theagilemonkeys.crm.dto.ImageUploadResponseDTO;
 import com.theagilemonkeys.crm.dto.UpdateCustomerDTO;
 import com.theagilemonkeys.crm.entity.Customer;
+import com.theagilemonkeys.crm.entity.ProfilePhoto;
+import com.theagilemonkeys.crm.exception.BusinessException;
 import com.theagilemonkeys.crm.exception.PersistenceException;
 import com.theagilemonkeys.crm.mapper.CustomerMapper;
 import com.theagilemonkeys.crm.service.CustomerService;
@@ -17,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +30,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Customer")
 @RestController
@@ -42,8 +48,8 @@ public class CustomerController {
 
   @PostMapping("/customer")
   public ResponseEntity createCustomer(
-      @AuthenticationPrincipal AuthenticatedUserDTO authenticatedUser, @Valid @RequestBody
-      CreateCustomerDTO createCustomerDTO) throws PersistenceException {
+      @AuthenticationPrincipal AuthenticatedUserDTO authenticatedUser,
+      @Valid @RequestBody final CreateCustomerDTO createCustomerDTO) throws PersistenceException {
 
     Customer customer = customerService.saveCustomer(
         customerMapper.createCustomerDTOToCustomerBusinessEntity(createCustomerDTO,
@@ -55,8 +61,9 @@ public class CustomerController {
 
   @PutMapping("/customer/{customerId}")
   public ResponseEntity updateCustomer(
-      @AuthenticationPrincipal AuthenticatedUserDTO authenticatedUser, @Valid @RequestBody
-      UpdateCustomerDTO updateCustomerDTO, @PathVariable UUID customerId)
+      @AuthenticationPrincipal final AuthenticatedUserDTO authenticatedUser,
+      @Valid @RequestBody final UpdateCustomerDTO updateCustomerDTO,
+      @PathVariable final UUID customerId)
       throws PersistenceException {
 
     Optional<Customer> fetchedCustomer = customerService.findCustomerById(customerId);
@@ -82,7 +89,7 @@ public class CustomerController {
   }
 
   @GetMapping("/customer/{customerId}")
-  public ResponseEntity<Customer> getCustomerDetails(@PathVariable UUID customerId)
+  public ResponseEntity<Customer> getCustomerDetails(@PathVariable final UUID customerId)
       throws PersistenceException {
     Optional<Customer> customer = customerService.findCustomerById(customerId);
     if (customer.isPresent()) {
@@ -93,7 +100,8 @@ public class CustomerController {
   }
 
   @DeleteMapping("/customer/{customerId}")
-  public ResponseEntity deleteCustomer(@PathVariable UUID customerId) throws PersistenceException {
+  public ResponseEntity deleteCustomer(@PathVariable final UUID customerId)
+      throws PersistenceException {
     Optional<Customer> customer = customerService.findCustomerById(customerId);
     if (customer.isPresent()) {
       customerService.deleteCustomer(customerId);
@@ -102,6 +110,22 @@ public class CustomerController {
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+  }
+
+  @PostMapping(path = "/customer/{customerId}/photo",
+      consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ImageUploadResponseDTO> uploadProfilePhoto(
+      @PathVariable("customerId") final UUID customerId,
+      @RequestParam("name") final String name,
+      @RequestParam("file") final MultipartFile file) throws BusinessException,
+                                                             PersistenceException {
+    ProfilePhoto profilePhoto = customerMapper.toProfilePhotoBusinessEntity(customerId, name, file);
+    String imagePath = customerService.uploadProfilePhoto(profilePhoto);
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(ImageUploadResponseDTO.builder()
+            .photoUrl(imagePath)
+            .build());
   }
 
 }

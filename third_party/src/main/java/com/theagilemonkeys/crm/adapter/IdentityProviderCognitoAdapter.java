@@ -134,7 +134,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
 
     } catch (RuntimeException ex) {
       log.error("Runtime exception while changing password for user {} - Error:", userName, ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
 
   }
@@ -163,7 +163,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
           .build();
     } catch (RuntimeException ex) {
       log.error("Error while getting user tokens - Error:", ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
 
   }
@@ -178,7 +178,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
       log.info("User {} deleted by admin", userName);
     } catch (RuntimeException ex) {
       log.error("Error while deleting Cognito user - Error:", ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
   }
 
@@ -207,7 +207,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
 
     } catch (RuntimeException ex) {
       log.error("Error while listing Cognito users - Error:", ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
   }
 
@@ -231,7 +231,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
       log.info("Updated admin status to {} for user {}", isAdmin, username);
     } catch (RuntimeException ex) {
       log.error("Error while changing admin status for user {} - Error:", username, ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
   }
 
@@ -248,7 +248,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
       return adminUsers;
     } catch (RuntimeException ex) {
       log.error("Error while fetching admin users in Cognito - Error:", ex);
-      throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
+      throw BusinessExceptionEnum.APPLICATION_ERROR.exception(ex.getMessage());
     }
   }
 

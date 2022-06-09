@@ -9,4 +9,4 @@ services:
     environment:
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_ACCESS_KEY_ID=test
-      - SERVICES=dynamodb
+      - SERVICES=dynamodb,s3

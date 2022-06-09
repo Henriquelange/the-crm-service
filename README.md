@@ -33,6 +33,7 @@ Here are the underlying technologies that provides all the support needed for th
 - Spring 2.7.0;
 - Java 11;
 - AWS DynamoDB database;
+- AWS S3;
 - Cognito as IDP;
 - New Relic for APM.
 
