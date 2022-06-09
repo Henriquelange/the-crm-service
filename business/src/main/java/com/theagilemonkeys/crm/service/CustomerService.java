@@ -29,4 +29,8 @@ public class CustomerService {
     return customerRepository.findAll();
   }
 
+  public void deleteCustomer(UUID customerId) throws PersistenceException {
+    customerRepository.delete(customerId);
+  }
+
 }
