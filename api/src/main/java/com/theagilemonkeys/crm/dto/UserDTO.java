@@ -1,22 +1,18 @@
-package com.theagilemonkeys.crm.entity;
+package com.theagilemonkeys.crm.dto;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class UserDTO {
 
-  @NonNull
   private String email;
-
-  private String password;
 
   private boolean admin;
 
