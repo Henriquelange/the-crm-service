@@ -2,6 +2,7 @@ package com.theagilemonkeys.crm.mapper;
 
 import com.theagilemonkeys.crm.dto.AuthenticatedUserDTO;
 import com.theagilemonkeys.crm.dto.CreateCustomerDTO;
+import com.theagilemonkeys.crm.dto.UpdateCustomerDTO;
 import com.theagilemonkeys.crm.entity.Customer;
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -20,6 +21,9 @@ public interface CustomerMapper {
   @Mapping(source = "customerDTO.photoUrl", target = "photoUrl")
   @Mapping(source = "authenticatedUser.email", target = "lastModifiedBy")
   Customer createCustomerDTOToCustomerBusinessEntity(CreateCustomerDTO customerDTO,
+                                                     AuthenticatedUserDTO authenticatedUser);
+
+  Customer updateCustomerDTOToExistingCustomerBusinessEntity(UpdateCustomerDTO customerDTO,
                                                      AuthenticatedUserDTO authenticatedUser);
 
 }

@@ -19,8 +19,15 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @Slf4j
 public class ErrorHandler {
 
-  @ExceptionHandler({MethodArgumentNotValidException.class,
-      MethodArgumentTypeMismatchException.class})
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public ErrorResponseDTO methodArgumentTypeMismatchHandler(final MethodArgumentTypeMismatchException ex) {
+    log.error("Invalid incoming request. Error: {}", ex);
+    return ErrorResponseDTO.builder().errors(List.of(ex.getMessage())).build();
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
   public ErrorResponseDTO methodArgumentNotValidHandler(final MethodArgumentNotValidException ex) {
