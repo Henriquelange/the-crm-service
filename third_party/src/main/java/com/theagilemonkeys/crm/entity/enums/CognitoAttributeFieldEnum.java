@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum CognitoAttributeFieldEnum {
+  USERNAME("cognito:username", ""),
   EMAIL("email", ""),
-  PHONE_NUMBER("phone_number", ""),
   EMAIL_VERIFIED("email_verified", "false"),
-  PHONE_NUMBER_VERIFIED("phone_number_verified", "false");
+  GROUPS("cognito:groups", "");
 
   private final String name;
   private final String defaultValue;

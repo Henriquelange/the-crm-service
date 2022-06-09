@@ -24,8 +24,10 @@ public class HttpSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity.authorizeRequests()
-        .antMatchers("/api/crm/login/**", "/api/health/**",
+    httpSecurity.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/api/crm/login/**",
+            "/api/health/**",
             "/swagger-ui.html",
             "/api-docs/**",
             "/swagger-ui/**")
@@ -34,8 +36,13 @@ public class HttpSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.OPTIONS, "/api/crm/**")
         .permitAll()
+        .and()
+        .authorizeRequests()
+        .antMatchers("/api/crm/admin/**")
+        .hasAuthority("admin")
         .anyRequest().authenticated().and()
-        .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
+        .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
