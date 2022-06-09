@@ -228,6 +228,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
         request.setGroupName("admin");
         awsCognitoIdentityProvider.adminRemoveUserFromGroup(request);
       }
+      log.info("Updated admin status to {} for user {}", isAdmin, username);
     } catch (RuntimeException ex) {
       log.error("Error while changing admin status for user {} - Error:", username, ex);
       throw BusinessExceptionEnum.APPLICATION_ERROR.exception();
