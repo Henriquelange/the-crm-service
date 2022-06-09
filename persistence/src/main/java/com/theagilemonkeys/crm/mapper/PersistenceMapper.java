@@ -22,6 +22,7 @@ public abstract class PersistenceMapper {
   public abstract Customer customerPersistenceToCustomerBusinessEntity(
       CustomerPersistence customerPersistence);
 
-  public abstract CustomerPersistence customerBusinessToCustomerPersistenceEntity(Customer customer);
+  public abstract CustomerPersistence customerBusinessToCustomerPersistenceEntity(
+      Customer customer);
 
 }

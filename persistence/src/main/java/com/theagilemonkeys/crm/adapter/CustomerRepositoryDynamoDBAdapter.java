@@ -30,7 +30,8 @@ public class CustomerRepositoryDynamoDBAdapter implements CustomerRepository {
   public Optional<Customer> findById(final UUID id) throws PersistenceException {
     try {
       Optional<CustomerPersistence> fetchedCustomer = customerRepository.findById(id.toString());
-      return fetchedCustomer.map(customer -> persistenceMapper.customerPersistenceToCustomerBusinessEntity(customer));
+      return fetchedCustomer.map(
+          customer -> persistenceMapper.customerPersistenceToCustomerBusinessEntity(customer));
     } catch (Exception e) {
       log.error("Error while finding customer with id {}: ", id, e);
       throw PersistenceExceptionEnum.QUERY_DATABASE_ERROR.exception(e.getMessage());
@@ -54,7 +55,8 @@ public class CustomerRepositoryDynamoDBAdapter implements CustomerRepository {
   @Override
   public Customer save(final Customer customer) throws PersistenceException {
     try {
-      CustomerPersistence fetchedCustomer = customerRepository.save(persistenceMapper.customerBusinessToCustomerPersistenceEntity(customer));
+      CustomerPersistence fetchedCustomer = customerRepository.save(
+          persistenceMapper.customerBusinessToCustomerPersistenceEntity(customer));
       return persistenceMapper.customerPersistenceToCustomerBusinessEntity(fetchedCustomer);
     } catch (Exception e) {
       log.error("Error while saving customer {}:", customer, e);

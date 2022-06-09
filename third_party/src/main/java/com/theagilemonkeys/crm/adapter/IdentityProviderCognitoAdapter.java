@@ -32,6 +32,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class IdentityProviderCognitoAdapter implements IdentityProviderIntegration {
 
+  private static final String NEW_PASSWORD_REQUIRED_CHALLENGE = "NEW_PASSWORD_REQUIRED";
+
   @Value("${amazon.cognito.userPoolId}")
   private String userPoolId;
 
@@ -42,29 +44,20 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
   private AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
   @Override
-  public void createUser(User user) throws BusinessException {
+  public void createUser(final User user) throws BusinessException {
     try {
 
       AttributeType emailAttr = new AttributeType().withName(
               CognitoAttributeFieldEnum.EMAIL.getName())
           .withValue(user.getEmail());
 
-      AttributeType phoneNumberAttr = new AttributeType().withName(
-              CognitoAttributeFieldEnum.PHONE_NUMBER.getName())
-          .withValue(user.getPhoneNumber());
-
       AttributeType emailVerifiedAttr = new AttributeType().withName(
               CognitoAttributeFieldEnum.EMAIL_VERIFIED.getName())
           .withValue(CognitoAttributeFieldEnum.EMAIL_VERIFIED.getDefaultValue());
 
-      AttributeType phoneNumberVerifiedAttr = new AttributeType().withName(
-              CognitoAttributeFieldEnum.PHONE_NUMBER_VERIFIED.getName())
-          .withValue(CognitoAttributeFieldEnum.PHONE_NUMBER_VERIFIED.getDefaultValue());
-
       AdminCreateUserRequest createUserRequest =
           new AdminCreateUserRequest().withUserPoolId(userPoolId).withUsername(user.getEmail())
-              .withUserAttributes(emailAttr, emailVerifiedAttr, phoneNumberAttr,
-                  phoneNumberVerifiedAttr)
+              .withUserAttributes(emailAttr, emailVerifiedAttr)
               .withMessageAction(MessageActionType.SUPPRESS)
               .withTemporaryPassword(user.getPassword());
 
@@ -86,8 +79,8 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
   }
 
   @Override
-  public void changeTemporaryPassword(String userName, String temporaryPassword,
-                                      String finalPassword) throws BusinessException {
+  public void changeTemporaryPassword(final String userName, final String temporaryPassword,
+                                      final String finalPassword) throws BusinessException {
     try {
 
       final Map<String, String> authParams = new HashMap<>();
@@ -151,7 +144,7 @@ public class IdentityProviderCognitoAdapter implements IdentityProviderIntegrati
       final InitiateAuthResult result = awsCognitoIdentityProvider.initiateAuth(
           initiateAuthRequest);
 
-      log.info("User {} logged in", userName);
+      log.info("User {} authenticated", userName);
 
       return Authentication.builder()
           .idToken(result.getAuthenticationResult().getIdToken())

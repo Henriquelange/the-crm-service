@@ -19,6 +19,7 @@ public interface CustomerMapper {
   @Mapping(source = "customerDTO.lastName", target = "lastName")
   @Mapping(source = "customerDTO.photoUrl", target = "photoUrl")
   @Mapping(source = "authenticatedUser.email", target = "lastModifiedBy")
-  Customer createCustomerDTOToCustomerBusinessEntity(CreateCustomerDTO customerDTO, AuthenticatedUserDTO authenticatedUser);
+  Customer createCustomerDTOToCustomerBusinessEntity(CreateCustomerDTO customerDTO,
+                                                     AuthenticatedUserDTO authenticatedUser);
 
 }

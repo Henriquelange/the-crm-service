@@ -18,9 +18,10 @@ public class IdentityService {
     this.identityProviderIntegration.changeTemporaryPassword(userName, temporaryPassword, password);
   }
 
-  public Authentication authenticate(String userName, String password)
+  public Authentication authenticate(User user)
       throws BusinessException {
-    return this.identityProviderIntegration.authenticate(userName, password);
+    return this.identityProviderIntegration.authenticate(user.getEmail(),
+        user.getPassword());
   }
 
   public void createUser(User user) throws BusinessException {
