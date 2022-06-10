@@ -50,7 +50,8 @@ public class JWTFilter extends OncePerRequestFilter {
         boolean adminUser = false;
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        JSONArray userGroups = (JSONArray) claimsSet.getClaim(CognitoAttributeFieldEnum.GROUPS.getName());
+        JSONArray userGroups =
+            (JSONArray) claimsSet.getClaim(CognitoAttributeFieldEnum.GROUPS.getName());
         if (userGroups != null) {
           for (var group : userGroups) {
             if (group.toString().equalsIgnoreCase("admin")) {

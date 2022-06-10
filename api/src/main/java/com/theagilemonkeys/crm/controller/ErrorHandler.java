@@ -23,7 +23,8 @@ public class ErrorHandler {
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
-  public ErrorResponseDTO methodArgumentTypeMismatchHandler(final MethodArgumentTypeMismatchException ex) {
+  public ErrorResponseDTO methodArgumentTypeMismatchHandler(
+      final MethodArgumentTypeMismatchException ex) {
     log.error("Invalid incoming request. Error: {}", ex);
     return ErrorResponseDTO.builder().errors(List.of(ex.getMessage())).build();
   }

@@ -14,7 +14,8 @@ public class IdentityService {
 
   private final IdentityProviderIntegration identityProviderIntegration;
 
-  public void changeTemporaryPassword(final String userName, final  String temporaryPassword, final  String password)
+  public void changeTemporaryPassword(final String userName, final String temporaryPassword,
+                                      final String password)
       throws BusinessException {
     this.identityProviderIntegration.changeTemporaryPassword(userName, temporaryPassword, password);
   }
@@ -37,7 +38,8 @@ public class IdentityService {
     return this.identityProviderIntegration.listUsers();
   }
 
-  public void setAdminStatus(final String username, final boolean isAdmin) throws BusinessException {
+  public void setAdminStatus(final String username, final boolean isAdmin)
+      throws BusinessException {
     this.identityProviderIntegration.setAdminStatus(username, isAdmin);
   }
 
