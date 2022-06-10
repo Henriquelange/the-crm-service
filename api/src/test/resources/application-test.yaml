@@ -1,7 +1,5 @@
 amazon:
-  accessKeyId:
-  account: "000000000000"
-  secretKey:
+  account: "261026838490"
   region: us-east-1
   useIAMRoles: false
   endpoint: http://localhost:4566/000000000000

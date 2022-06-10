@@ -69,6 +69,7 @@
             <artifactId>springdoc-openapi-security</artifactId>
             <version>${spring.doc.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

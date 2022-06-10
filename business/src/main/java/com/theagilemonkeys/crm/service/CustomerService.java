@@ -19,8 +19,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,6 +52,10 @@ public class CustomerService {
 
   public void deleteCustomer(UUID customerId) throws PersistenceException {
     customerRepository.delete(customerId);
+  }
+
+  public void deleteAllCustomers() throws PersistenceException {
+    customerRepository.deleteAll();
   }
 
   public String uploadProfilePhoto(ProfilePhoto profilePhoto)

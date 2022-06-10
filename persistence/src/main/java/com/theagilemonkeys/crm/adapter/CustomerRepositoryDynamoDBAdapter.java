@@ -73,4 +73,14 @@ public class CustomerRepositoryDynamoDBAdapter implements CustomerRepository {
       throw PersistenceExceptionEnum.DELETE_FROM_DATABASE_ERROR.exception(e.getMessage());
     }
   }
+
+  @Override
+  public void deleteAll() throws PersistenceException {
+    try {
+      customerRepository.deleteAll();
+    } catch (Exception e) {
+      log.error("Error while deleting all customers: ", e);
+      throw PersistenceExceptionEnum.DELETE_FROM_DATABASE_ERROR.exception(e.getMessage());
+    }
+  }
 }

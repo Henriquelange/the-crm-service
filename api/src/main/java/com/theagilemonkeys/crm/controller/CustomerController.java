@@ -56,7 +56,7 @@ public class CustomerController {
             authenticatedUser));
     log.info("Created customer: {}", customer);
 
-    return ResponseEntity.status(HttpStatus.OK).build();
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @PutMapping("/customer/{customerId}")
