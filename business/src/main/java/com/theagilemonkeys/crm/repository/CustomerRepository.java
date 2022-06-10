@@ -16,4 +16,6 @@ public interface CustomerRepository {
 
   void delete(UUID id) throws PersistenceException;
 
+  void deleteAll() throws PersistenceException;
+
 }

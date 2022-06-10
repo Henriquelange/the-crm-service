@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
-@Profile("!test")
 @EnableDynamoDBRepositories(basePackages = "com.theagilemonkeys.crm.repository")
 public class DynamoDBConfig {
 
@@ -28,7 +27,7 @@ public class DynamoDBConfig {
   }
 
   @Bean("amazonDynamoDB")
-  @Profile("local")
+  @Profile({"local", "test"})
   public AmazonDynamoDB amazonDynamoDBDefault() {
     return AmazonDynamoDBClientBuilder
         .standard()
@@ -39,7 +38,7 @@ public class DynamoDBConfig {
   }
 
   @Bean("amazonDynamoDB")
-  @Profile("!local")
+  @Profile("dev")
   public AmazonDynamoDB amazonDynamoDB() {
     return AmazonDynamoDBClientBuilder
         .standard()

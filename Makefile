@@ -10,7 +10,7 @@ docker-start:
 	docker-compose -f local/docker-compose.yaml up -d --remove-orphans
 	@sleep 2
 	sh local/create_dynamodb_table.sh
-	@sleep 1
+	@sleep 2
 	sh local/send_customer_to_dynamodb.sh
 	@sleep 1
 	sh local/create_s3_bucket.sh

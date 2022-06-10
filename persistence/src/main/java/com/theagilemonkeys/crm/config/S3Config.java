@@ -21,7 +21,7 @@ public class S3Config {
   private String awsRegion;
 
   @Bean("amazonS3")
-  @Profile("local")
+  @Profile({"local","test"})
   public AmazonS3 amazonS3Default() {
     return AmazonS3ClientBuilder
         .standard()
@@ -33,7 +33,7 @@ public class S3Config {
   }
 
   @Bean("amazonS3")
-  @Profile("!local")
+  @Profile("dev")
   public AmazonS3 amazonS3() {
     return AmazonS3ClientBuilder
         .standard()

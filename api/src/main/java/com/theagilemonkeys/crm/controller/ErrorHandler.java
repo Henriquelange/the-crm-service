@@ -1,6 +1,7 @@
 package com.theagilemonkeys.crm.controller;
 
 import com.theagilemonkeys.crm.dto.ErrorResponseDTO;
+import com.theagilemonkeys.crm.exception.BusinessException;
 import com.theagilemonkeys.crm.exception.PersistenceException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +47,15 @@ public class ErrorHandler {
   @ResponseBody
   public ResponseEntity<ErrorResponseDTO> persistenceExceptionHandler(
       final PersistenceException ex) {
+    ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
+        .errors(List.of(ex.getMessage())).build();
+    return ResponseEntity.status(ex.getHttpCode()).body(errorResponse);
+  }
+
+  @ExceptionHandler(BusinessException.class)
+  @ResponseBody
+  public ResponseEntity<ErrorResponseDTO> businessExceptionHandler(
+      final BusinessException ex) {
     ErrorResponseDTO errorResponse = ErrorResponseDTO.builder()
         .errors(List.of(ex.getMessage())).build();
     return ResponseEntity.status(ex.getHttpCode()).body(errorResponse);
